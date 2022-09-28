@@ -17,8 +17,8 @@ const Book = () => {
   const [currentBook, setCurrentBook] = useState<any>();
   const [book, setBook] = useState<boolean | null>(null);
   const [bookEntries, setBookEntries] = useState<string[] | null>(null);
-  const ref = useRef<HTMLInputElement>(null);
-  const [refresh, setRefresh] = useState<number>(0);
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     let book: string;
     function getRouterQuery() {
@@ -50,8 +50,10 @@ const Book = () => {
     await updateDoc(documentRef, {
       entries: arrayUnion(ref.current?.value),
     });
+    setLoading(true);
     //@ts-ignore
     router.reload(window.location.pathname);
+    setLoading(false);
   }
   return (
     <div className='min-w-[340px]'>
@@ -79,10 +81,12 @@ const Book = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className='flex flex-wrap'>
             {bookEntries &&
               bookEntries.map((item) => {
-                return <Comments entry={item} />;
+                return (
+                  <Comments key={item} currentBook={currentBook} entry={item} />
+                );
               })}
           </div>
         </div>
