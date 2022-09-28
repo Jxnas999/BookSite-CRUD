@@ -1,9 +1,12 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import Navbar from "./Components/Navbar";
 
 const Home: NextPage = () => {
   return (
-    <div className='h-screen bg-[#000000] bg-cover'>
+    <div className="font-ubuntu">
+      <Navbar/>
+    <div className='h-screen bg-[#e9e8e8] bg-cover'>
       <div className='flex flex-col pt-20 text-center select-none'>
         <h1 className='mb-2 text-6xl font-medium antialiased text-transparent md:text-8xl bg-gradient-to-r from-[#6669f2]   to-[#44b7ff] bg-clip-text'>
           Sum it up!
@@ -40,6 +43,7 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
