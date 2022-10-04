@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { BiMenuAltRight } from 'react-icons/bi'
 export default function Navbar() {
     const [menu, setMenu] = useState<boolean>(false)

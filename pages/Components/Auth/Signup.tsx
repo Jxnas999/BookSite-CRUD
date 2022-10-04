@@ -1,7 +1,27 @@
 import Link from "next/link";
-import React from "react";
-
+import React, { useState } from "react";
+import {firebaseAuthRef} from '../../firebase/firebaseauth'
+import { createUserWithEmailAndPassword } from "firebase/auth";
 export default function Signup() {
+  const [email, setEmail] = useState<string|undefined>(undefined)
+  const [password, setPassword] = useState<any>(undefined)
+
+  async function createUser() {
+    if(email && password) {
+    createUserWithEmailAndPassword(firebaseAuthRef, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+}
+  }
   return (
     <div className='bg-[#1D1D1D] font-inter '>
       <div className='flex flex-col items-center justify-center h-screen text-center'>
@@ -9,19 +29,17 @@ export default function Signup() {
         <input
           type='email'
           placeholder='Email'
+          onChange={e => setEmail(e.target.value)}
           className='px-10 md:min-w-[400px] min-w-[300px] bg-[#2B2B2B] focus:outline-[#3079df] my-4 rounded-lg py-2 outline-none text-white font-medium '
         />
         <input
           type='password'
           placeholder='Password'
+          onChange={e => setPassword(e.target.value)}
           className='px-10 md:min-w-[400px] min-w-[300px] bg-[#2B2B2B] focus:outline-[#3079df] rounded-lg py-2 outline-none text-white font-medium '
         />
-        <input
-          type='password'
-          placeholder='Confirm Password'
-          className='px-10 md:min-w-[400px] min-w-[300px] bg-[#2B2B2B] focus:outline-[#3079df] rounded-lg py-2 outline-none mt-4 text-white font-medium '
-        />
-        <button className=' md:min-w-[400px] uppercase min-w-[300px]  bg-[#FFF] rounded-xl px-8 mt-4 font-bold sm:px-10 py-2'>
+       
+        <button onClick={createUser} className=' md:min-w-[400px] uppercase min-w-[300px]  bg-[#FFF] rounded-xl px-8 mt-4 font-bold sm:px-10 py-2'>
           Sign up
         </button>
         <div className='flex mt-4'>

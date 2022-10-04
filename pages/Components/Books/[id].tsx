@@ -19,6 +19,7 @@ const Book = () => {
   const [bookEntries, setBookEntries] = useState<string[] | null>(null);
   const ref = useRef<HTMLTextAreaElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [addedInfo, setAddedInfo] = useState<number>(0)
   useEffect(() => {
     let book: string;
     function getRouterQuery() {
@@ -45,7 +46,7 @@ const Book = () => {
       }
     }
     getBooks();
-  }, [router.isReady]);
+  }, [router.isReady, addedInfo]);
 
   async function addingInfo() {
     const documentRef = doc(firebaseDatabase, "books", `${currentBook}`);
@@ -53,8 +54,7 @@ const Book = () => {
       entries: arrayUnion(ref.current?.value),
     });
     setLoading(true);
-    //@ts-ignore
-    router.reload(window.location.pathname);
+    setAddedInfo(addedInfo+1)
   }
   return (
     <div className='min-w-[340px]'>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { setDoc, doc } from "@firebase/firestore";
+import { setDoc, doc, getDoc } from "@firebase/firestore";
 import { firebaseDatabase } from "../firebase/firebasedb";
 import { useRouter } from "next/router";
 export default function Adding() {
@@ -9,7 +9,7 @@ export default function Adding() {
   const [book, setBook] = useState<string | null>(null);
   const [podcastInput, setPodcastInput] = useState<boolean | null>(null);
   const [podcast, setPodcast] = useState<string | null>(null);
-
+  const [error, setError] = useState<string | null>(null)
   function handleInputChangeBook(e: any) {
     setBook(e.target.value);
     e.target.value.length > 0 ? setBookInput(true) : setBookInput(false);
@@ -19,6 +19,16 @@ export default function Adding() {
     e.target.value.length > 0 ? setPodcastInput(true) : setPodcastInput(false);
   }
   async function createBookEntry() {
+    const docRef = doc(firebaseDatabase, 'books', `${book}`)
+    const docSnap = await getDoc(docRef)
+    if(docSnap.exists()){
+      console.log('exists')
+      setError('The Book is already created, please enter another name.')
+      setTimeout(() => {
+        setError(null)
+      },5000);
+    }
+    else {
     try {
       await setDoc(doc(firebaseDatabase, "books", `${book}`), {
         name: book,
@@ -29,7 +39,18 @@ export default function Adding() {
       console.error("Error adding document: ", e);
     }
   }
+  }
   async function createPodcastEntry() {
+    const docRef = doc(firebaseDatabase, 'podcasts', `${podcast}`)
+    const docSnap = await getDoc(docRef)
+    if(docSnap.exists()){
+      console.log('exists')
+      setError('The Podcast is already created, please enter another name.')
+      setTimeout(() => {
+        setError(null)
+      },5000);
+    }
+    else {
     try {
       await setDoc(doc(firebaseDatabase, "podcasts", `${podcast}`), {
         name: podcast,
@@ -40,8 +61,10 @@ export default function Adding() {
       console.error("Error adding document: ", e);
     }
   }
+  }
   return (
     <div className='flex justify-center h-screen font-ubuntu'>
+      {error? <div className="absolute top-0  duration-300 animate-bounce p-5 mt-10 rounded-3xl bg-[#000000] text-[#3091e5]">{error}</div>:<div></div>}
       {bookOrPodcast == undefined ? (
         <div className='flex flex-col items-center justify-center'>
           <h1 className='text-2xl font-bold sm:text-4xl md:text-4xl'>
