@@ -19,11 +19,12 @@ export default function Comments({ entry, currentBook }: Book) {
   }
   return (
     <div>
-      {!deleted ? <div className='m-8'>
-        <p className='md:text-xl  py-4 outline-none   font-bold  bg-[#3E6ADD] px-6 rounded-2xl drop-shadow-lg text-white '>
+      {!deleted ? <div className='m-8 md:text-xl shadow-custom-box  py-4 outline-none   bg-[#3E6ADD] px-6 rounded-2xl drop-shadow-lg text-white '>
+        <p className=''>
           {entry}
         </p>
-        <BsTrashFill onClick={deleteEntry} className='fixed'></BsTrashFill>
+        <BsTrashFill className="drop-shadow-md ml-auto duration-150 hover:text-[#1f1f1f]" onClick={deleteEntry}></BsTrashFill>
+
       </div>:<div></div>}
     </div>
   );

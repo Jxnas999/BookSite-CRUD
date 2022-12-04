@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom-box': ' 0px 20px 30px -10px rgb(38, 57, 77)'
+      },
       fontFamily: {
         ubuntu: ["Ubuntu", "sans-serif"],
         inter: ["Inter", "sans-serif"],

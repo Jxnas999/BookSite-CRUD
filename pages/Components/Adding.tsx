@@ -64,11 +64,11 @@ export default function Adding() {
   }
   return (
     <div className='flex justify-center h-screen font-ubuntu'>
-      {error? <div className="absolute top-0  duration-300 animate-bounce p-5 mt-10 rounded-3xl bg-[#000000] text-[#3091e5]">{error}</div>:<div></div>}
+      {error? <div className="absolute top-0  duration-300 animate-bounce p-5 mt-10 rounded-3xl bg-[#3E6ADD] text-[#ffffff] shadow-custom-box">{error}</div>:<div></div>}
       {bookOrPodcast == undefined ? (
         <div className='flex flex-col items-center justify-center'>
           <h1 className='text-2xl font-bold sm:text-4xl md:text-4xl'>
-            What do you wanna add?
+            What do you want to add?
           </h1>
           <div>
             <button

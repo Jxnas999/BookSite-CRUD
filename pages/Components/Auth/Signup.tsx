@@ -1,14 +1,14 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {firebaseAuthRef} from '../../firebase/firebaseauth'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 export default function Signup() {
-  const [email, setEmail] = useState<string|undefined>(undefined)
-  const [password, setPassword] = useState<any>(undefined)
-
+    
+ const email = useRef<HTMLInputElement>(null)
+ const password = useRef<HTMLInputElement>(null)
   async function createUser() {
-    if(email && password) {
-    createUserWithEmailAndPassword(firebaseAuthRef, email, password)
+    if(email.current && password.current) {
+    createUserWithEmailAndPassword(firebaseAuthRef, email.current.value, password.current.value)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
@@ -29,13 +29,13 @@ export default function Signup() {
         <input
           type='email'
           placeholder='Email'
-          onChange={e => setEmail(e.target.value)}
+          ref={email}
           className='px-10 md:min-w-[400px] min-w-[300px] bg-[#2B2B2B] focus:outline-[#3079df] my-4 rounded-lg py-2 outline-none text-white font-medium '
         />
         <input
           type='password'
           placeholder='Password'
-          onChange={e => setPassword(e.target.value)}
+          ref={password}
           className='px-10 md:min-w-[400px] min-w-[300px] bg-[#2B2B2B] focus:outline-[#3079df] rounded-lg py-2 outline-none text-white font-medium '
         />
        

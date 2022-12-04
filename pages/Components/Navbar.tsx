@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState } from 'react'
 import { BiMenuAltRight } from 'react-icons/bi'
 export default function Navbar() {
@@ -8,10 +9,12 @@ export default function Navbar() {
   return (
     <div>
         <div className='hidden font-bold uppercase justify-around sm:flex bg-gradient-to-r from-[#6669f2]   via-[#4486ff] to-[#5b85e6] text-white'>
-            <h1 className='ml-3 p-4'>Home</h1>
-            <h1 className='ml-3 p-4'>Notes</h1>
-            <h1 className='ml-3 p-4'>Recommendations</h1>
-            <h1 className='ml-3 p-4'>Login</h1>
+            <h1 className='ml-3 cursor-pointer p-4'>Home</h1>
+            <h1 className='ml-3 cursor-pointer p-4'>Notes</h1>
+            <h1 className='ml-3 cursor-pointer p-4'>Recommendations</h1>
+            <Link href='/Components/Auth/Login'>
+                <h1 className='ml-3 cursor-pointer p-4'>Login</h1>
+            </Link>       
         </div>
         <div className='flex sm:hidden justify-end uppercase bg-gradient-to-r from-[#6669f2]   via-[#4486ff] to-[#5b85e6]'>
             {menu ? <div className='absolute duration-300 font-bold text-white bg-gradient-to-r from-[#7375e8] shadow-lg  via-[#4486ff] to-[#4471dc] h-screen w-[50%] top-0 left-0 z-50'>
