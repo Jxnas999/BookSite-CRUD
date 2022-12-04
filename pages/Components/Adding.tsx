@@ -31,7 +31,7 @@ export default function Adding() {
     else {
     try {
       await setDoc(doc(firebaseDatabase, "books", `${book}`), {
-        name: book,
+        name: `${book}`,
         entries: [],
       });
       router.push(`/Components/Books/${book}`);
