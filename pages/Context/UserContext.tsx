@@ -1,36 +1,27 @@
-import { createContext, useContext } from "react";
+import  React, { createContext , useContext, useState } from "react";
 
-type authContextType = {
-  name: string | null,
-  uid: string | null
-  
+interface Props {
+  children: React.ReactNode
 }
-const authContextDefaultValues: authContextType = {
-  name: null,
-  uid: null
-};
-
-
-const AuthContext = createContext<authContextType>(authContextDefaultValues);
-
-export function useUser() {
-    return useContext(AuthContext);
+type UserType = {
+  email: string | null,
+  uid: string | null,
+  setUid: React.Dispatch<React.SetStateAction<string>>,
+  setEmail: React.Dispatch<React.SetStateAction<string>>
 }
 
-type Props = {
-  children: React.ReactNode;
-};
+const Context = React.createContext<UserType>({} as UserType)
 
-export function AuthProvider({ children }: Props) {
-  const value = {
-name,
-uid
-  }
-  return (
-      <>
-          <AuthContext.Provider value={value}>
-              {children}
-          </AuthContext.Provider>
-      </>
-  );
+const UserProvider: React.FC<Props> = ({children}) => {
+  const [uid, setUid] = useState('')
+  const [email, setEmail] = useState('')
+  return(
+    <Context.Provider value={{uid, setUid, email, setEmail}}>
+      {children}
+    </Context.Provider>
+  )
 }
+
+export default UserProvider
+
+export const useUser = () => useContext(Context)

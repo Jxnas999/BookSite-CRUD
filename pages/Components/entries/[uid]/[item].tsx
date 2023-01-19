@@ -1,16 +1,15 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import {
-  getDocs,
-  collection,
   doc,
   getDoc,
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
-import { firebaseDatabase } from "../../firebase/firebasedb";
+import { firebaseDatabase } from "../../../firebase/firebasedb";
 import Link from "next/link";
-import Comments from "../Comments";
+import Comments from "../../Comments";
+import { useUser } from "../../../Context/UserContext";
 
 const Book = () => {
   const router = useRouter();
@@ -20,20 +19,24 @@ const Book = () => {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [addedInfo, setAddedInfo] = useState<number>(0)
+  const {uid} = useUser()
+  
   useEffect(() => {
-    let book: string;
-    function getRouterQuery() {
+    async function getRouterQuery() {
       if (router.isReady) {
-        const { id } = router.query;
-        setCurrentBook(id);
-        book = id as string;
+        const { uid, item } = router.query;
+        console.log(item)
+
+        await setCurrentBook(item as string);
       }
     }
     getRouterQuery();
 
     async function getBooks() {
+      console.log(uid)
+      if(uid){
       setLoading(true)
-      const docRef = doc(firebaseDatabase, "books", `${book}`);
+      const docRef = doc(firebaseDatabase, uid, `${currentBook}`);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -44,17 +47,21 @@ const Book = () => {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
+      }
     }
     getBooks();
+
   }, [router.isReady, addedInfo]);
 
   async function addingInfo() {
-    const documentRef = doc(firebaseDatabase, "books", `${currentBook}`);
-    await updateDoc(documentRef, {
-      entries: arrayUnion(ref.current?.value),
-    });
-    setLoading(true);
-    setAddedInfo(addedInfo+1)
+    if(uid){
+      const documentRef = doc(firebaseDatabase, uid, `${currentBook}`);
+      await updateDoc(documentRef, {
+        entries: arrayUnion(ref.current?.value),
+      });
+      setLoading(true);
+      setAddedInfo(addedInfo+1)
+    }
   }
   return (
     <div className='min-w-[340px]'>
