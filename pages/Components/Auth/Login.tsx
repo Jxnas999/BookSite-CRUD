@@ -2,26 +2,19 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import {useRef, useContext} from 'react'
+import {useRef} from 'react'
 import { firebaseAuthRef } from "../../firebase/firebaseauth";
-import { useUser } from "../../Context/UserContext";
 
 export default function Login() {
    const emailRef = useRef<HTMLInputElement>(null)
    const password = useRef<HTMLInputElement>(null)
    const router = useRouter();
-   const {setEmail, setUid} = useUser()
 
   async function userLogin () {
     
      if(emailRef.current?.value && password.current?.value){
      signInWithEmailAndPassword(firebaseAuthRef, emailRef.current.value, password.current.value)
-     .then((userCredential) => {
-      const user = userCredential.user;
-      if(user.email && user.uid){
-      setEmail(user.email)
-      setUid(user.uid)
-      }
+     .then(() => {
       router.push('/');
       
     })

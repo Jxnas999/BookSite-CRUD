@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { setDoc, doc, getDoc } from "@firebase/firestore";
 import { firebaseDatabase } from "../firebase/firebasedb";
 import { useRouter } from "next/router";
 import { useUser } from '../Context/UserContext'
+import { onAuthStateChanged } from "firebase/auth";
+import { firebaseAuthRef } from "../firebase/firebaseauth";
 export default function Adding() {
   const router = useRouter();
   const [addInput, setAddInput] = useState<boolean | undefined>();
   const [input, setInput] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null)
-  const { uid } = useUser()
-  console.log(uid)
+  const [uid, setUid] = useState<string | null>(null)
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuthRef, (user) => {
+        if (user) {
+          
+          setUid(user.uid)
+          
+        } else {
+          setUid(null)
+        }
+      });
+    }, [uid])
+
 
   function handleInputChange(e: any) {
     setInput(e.target.value);

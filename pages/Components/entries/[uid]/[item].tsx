@@ -9,7 +9,8 @@ import {
 import { firebaseDatabase } from "../../../firebase/firebasedb";
 import Link from "next/link";
 import Comments from "../../Comments";
-import { useUser } from "../../../Context/UserContext";
+import {  onAuthStateChanged } from "firebase/auth";
+import { firebaseAuthRef } from "../../../firebase/firebaseauth";
 
 const Book = () => {
   const router = useRouter();
@@ -19,24 +20,34 @@ const Book = () => {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [addedInfo, setAddedInfo] = useState<number>(0)
-  const {uid} = useUser()
+  const [uid, setUid] = useState<string | null>(null)
   
   useEffect(() => {
-    async function getRouterQuery() {
-      if (router.isReady) {
-        const { uid, item } = router.query;
-        console.log(item)
 
-        await setCurrentBook(item as string);
+      if (router.isReady) {
+        var { item } = router.query;
+
+       setCurrentBook(item as string);
       }
-    }
-    getRouterQuery();
+
+    
+    onAuthStateChanged(firebaseAuthRef, (user) => {
+      if (user) {
+        setUid(user.uid)
+        // ...
+      } else {
+        setUid(null)
+
+      }
+    });
+    
 
     async function getBooks() {
       console.log(uid)
+      console.log(item)
       if(uid){
       setLoading(true)
-      const docRef = doc(firebaseDatabase, uid, `${currentBook}`);
+      const docRef = doc(firebaseDatabase, uid, `${item}`);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -51,7 +62,7 @@ const Book = () => {
     }
     getBooks();
 
-  }, [router.isReady, addedInfo]);
+  }, [router.isReady, addedInfo, uid]);
 
   async function addingInfo() {
     if(uid){

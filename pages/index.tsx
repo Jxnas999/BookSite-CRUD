@@ -11,6 +11,7 @@ const Home: NextPage = () => {
         <h1 className='mb-2 text-6xl font-medium antialiased text-transparent md:text-8xl bg-gradient-to-r from-[#6669f2]   to-[#44b7ff] bg-clip-text'>
           Sum it up!
         </h1>
+        
         <p className='font-semibold  md:text-xl bg-gradient-to-r from-[#6669f2]   to-[#44b7ff] bg-clip-text text-transparent'>
           remember and learn the key points of your book, podcast etc.
         </p>
@@ -43,8 +44,10 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
+    
   </div>
   );
 };
 
 export default Home;
+
