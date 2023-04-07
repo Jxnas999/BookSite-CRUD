@@ -1,11 +1,35 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import Navbar from "./Components/Navbar";
-
+import {useState, useEffect} from 'react'
+import { onAuthStateChanged } from "firebase/auth";
+import { firebaseAuthRef } from "./firebase/firebaseauth";
 const Home: NextPage = () => {
+
+  const [uid, setUid] = useState<string | null>(null)
+    const [email, setEmail] = useState<string | null>(null)
+    const [books, setBooks] = useState<string[]>()
+    
+    useEffect(() => {
+      
+      onAuthStateChanged(firebaseAuthRef, (user) => {
+        if (user) {
+          console.log(user)
+          setUid(user.uid)
+          setEmail(user.email)
+          
+        } else {
+          setUid(null)
+        }
+      });
+
+    }, [uid]) 
+
+
+
   return (
     <div className="font-ubuntu">
-      <Navbar/>
+      <Navbar email={email} uid={uid}/>
     <div className='h-screen bg-[#e9e8e8] bg-cover'>
       <div className='flex flex-col pt-20 text-center select-none'>
         <h1 className='mb-2 text-6xl font-medium antialiased text-transparent md:text-8xl bg-gradient-to-r from-[#6669f2]   to-[#44b7ff] bg-clip-text'>

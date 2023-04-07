@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
 import { collection, getDocs } from "firebase/firestore";
-import { useUser } from '../Context/UserContext';
 import {useEffect, useState} from 'react'
 import { firebaseDatabase } from '../firebase/firebasedb';
 import Link from 'next/link';
@@ -12,37 +11,49 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 function Notes() {
     const [uid, setUid] = useState<string | null>(null)
+    const [email, setEmail] = useState<string | null>(null)
     const [books, setBooks] = useState<string[]>()
     
     useEffect(() => {
-      console.log(uid)
+      
       onAuthStateChanged(firebaseAuthRef, (user) => {
         if (user) {
+          console.log(user)
           setUid(user.uid)
+          setEmail(user.email)
+          
         } else {
           setUid(null)
+          setEmail(null)
+
         }
       });
 
-      const getNotes = async () => {
+      async function getNotes(){
         if(uid){
           const querySnapshot = await getDocs(collection(firebaseDatabase, uid));
           const tempBooks: string[] = []
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+
             tempBooks.push(doc.data().name)
           });
           setBooks(tempBooks)
         }
+        else{
+          console.log('No req')
+        }
        }
        getNotes()
         
+       console.log('Effect')
       
     }, [uid]) 
     
     return (
     <div className='font-ubuntu'>
-        <Navbar/>
+        <Navbar uid={uid} email={email}/>
         <div className='flex flex-col items-center'>
           <h1 className='text-4xl font-bold mt-4 border-b-4 border-black'>These are your Notes🧐</h1>
           {books && books.map(item => {
