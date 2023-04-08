@@ -8,7 +8,6 @@ const Home: NextPage = () => {
 
   const [uid, setUid] = useState<string | null>(null)
     const [email, setEmail] = useState<string | null>(null)
-    const [books, setBooks] = useState<string[]>()
     
     useEffect(() => {
       
@@ -20,6 +19,7 @@ const Home: NextPage = () => {
           
         } else {
           setUid(null)
+          setEmail(null)
         }
       });
 

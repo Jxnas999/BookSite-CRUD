@@ -19,7 +19,7 @@ export default function Comments({ entry, currentBook }: Book) {
   }
   return (
     <div>
-      {!deleted ? <div className='m-8 md:text-xl shadow-custom-box  py-4 outline-none   bg-[#3E6ADD] px-6 rounded-2xl drop-shadow-lg text-white '>
+      {!deleted ? <div className='m-8 md:text-xl shadow-custom-box min-w-[250px] max-w-[250px] max-h-[250px] overflow-y-scroll   py-4 outline-none   bg-[#3E6ADD] px-6 rounded-2xl drop-shadow-lg text-white '>
         <p className=''>
           {entry}
         </p>

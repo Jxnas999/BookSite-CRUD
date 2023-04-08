@@ -75,11 +75,12 @@ const Book = () => {
     }
   }
   return (
-    <div className='min-w-[340px]'>
+    <div className='min-w-[340px] font-ubuntu'>
+      <h1 className="bg-black inline-block text-white px-4 text-xl rounded-lg">Home</h1>
       {book ? (
         <div>
-          <div className='flex flex-col items-center mt-10 font-ubuntu'>
-            <h1 className='mb-2 text-6xl font-medium antialiased  md:text-8xl text-[#3E6ADD] drop-shadow-lg'>
+          <div className='flex flex-col items-center mt-10 '>
+            <h1 className=' text-6xl font-medium antialiased  md:text-8xl text-[#000]  p-3 rounded-lg drop-shadow-lg'>
               {currentBook}
             </h1>
             <div className='flex flex-col items-center'>
@@ -88,7 +89,7 @@ const Book = () => {
                 rows={10}
                 placeholder='Sum it up!'
                 ref={ref}
-                className='md:text-xl  max-h-[100px]  mt-8 py-4 outline-none    hide-scrollbar  resize-none bg-[#3E6ADD] px-6 rounded-2xl shadow-custom-box text-white '
+                className='md:text-xl  max-h-[100px]  mt-8 py-4 outline-none    hide-scrollbar  resize-none bg-[#000] px-6 rounded-2xl shadow-custom-box text-white '
               />
               <div>
                 <button

@@ -56,8 +56,12 @@ function Notes() {
         <Navbar uid={uid} email={email}/>
         <div className='flex flex-col items-center'>
           <h1 className='text-4xl font-bold mt-4 border-b-4 border-black'>These are your Notes🧐</h1>
+          <div className='flex flex-col relative'>
           {books && books.map(item => {
-            return(<h1 className='mb-2 text-3xl font-medium antialiased mt-4  md:text-4xl text-[#3E6ADD] drop-shadow-lg' key={item}><Link href={`/Components/entries/${uid}/${item}`} className='cursor-pointer '>{item}</Link></h1>)})}
+            return(
+              <button className='mb-2 px-20 py-2 bg-black text-3xl font-medium antialiased mt-4 md:text-4xl text-[#fff] hover:text-black hover:bg-white duration-300 drop-shadow-lg' key={item}><Link href={`/Components/entries/${uid}/${item}`} className='cursor-pointer '>{item}</Link></button>
+              )})}
+            </div>
         </div>
         
     </div>
