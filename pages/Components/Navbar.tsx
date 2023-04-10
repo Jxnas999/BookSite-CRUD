@@ -1,4 +1,4 @@
-import {  onAuthStateChanged } from 'firebase/auth'
+import {  getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { BiMenuAltRight } from 'react-icons/bi'
@@ -10,45 +10,51 @@ interface User {
 
 export default function Navbar({ email, uid }: User) {
     const [menu, setMenu] = useState<boolean>(false)
-
+    const [message, setMessage] = useState<string | null>(null)
     
 
     function onMenuClick () {
         setMenu(!menu)
     }
+    function logOut(){
+        const auth = getAuth();
+        signOut(auth).then(() => {
+        setTimeout(() => {
+            setMessage('Logged out successfully')
+          }, 2000);
+        }).catch((error) => {
+        // An error happened.
+        });
+        
+    }
 
 
   return (
     <div>
-        <div className='hidden font-bold uppercase justify-around sm:flex bg-gradient-to-r from-[#6669f2]   via-[#4486ff] to-[#5b85e6] text-white'>
+        <div className=' font-bold uppercase justify-around bg-black text-white flex'>
             <Link href='/'><h1 className='ml-3 cursor-pointer p-4'>Home</h1></Link>
             <Link href='/Components/Notes'><h1 className='ml-3 cursor-pointer p-4'>Notes</h1></Link>
-            <h1 className='ml-3 cursor-pointer p-4'>Recommendations</h1>
             
             {email? 
-            <div>
-                <h1 className='ml-3 p-4 cursor-pointer'>{email}</h1>    
-            </div>
+                <h1 className='ml-3 p-4 cursor-pointer'>{email}</h1>
             :
             <Link href='/Components/Auth/Login'>
                 <h1 className='ml-3 p-4 border-b-2 cursor-pointer'>Login</h1>
             </Link>
             }
+            {
+                email?
+                <h1 onClick={logOut} className='ml-3 p-4 cursor-pointer'>Sign Out</h1>
+                :
+                <></>
+            }
+            {
+                message?
+                <h1 className='absolute bottom-5 right-0 bg-black p-2 rounded-lg animate-bounce'>{message}</h1>
+                :
+                <></>
+            }
       
-        </div>
-        <div className='flex sm:hidden justify-end uppercase bg-gradient-to-r from-[#6669f2]   via-[#4486ff] to-[#5b85e6]'>
-            {menu ? <div className='absolute duration-300 font-bold text-white bg-gradient-to-r from-[#7375e8] shadow-lg  via-[#4486ff] to-[#4471dc] h-screen w-[50%] top-0 left-0 z-50'>
-            <Link href='/'><h1 className='ml-3 p-4 border-b-2 cursor-pointer'>Home</h1></Link>
-            <Link href='/Components/'><h1 className='ml-3 p-4 border-b-2 cursor-pointer'>Notes</h1></Link>
-            <Link href='/Components/'><h1 className='ml-3 p-4 border-b-2 cursor-pointer'>Recommendations</h1></Link>
-            {email? <h1 className='ml-3 p-4 border-b-2 cursor-pointer'>{email}</h1>:<Link href='/Components/Auth/Login'><h1 className='ml-3 p-4 border-b-2 cursor-pointer'>Login</h1></Link>}
-        </div> : <div className='absolute duration-300 font-bold text-white bg-gradient-to-r from-[#7375e8] shadow-lg  via-[#4486ff] to-[#4471dc] h-screen top-0 left-[-500px]'>
-            <h1 className='ml-3 p-4'>Home</h1>
-            <h1 className='ml-3 p-4'>Notes</h1>
-            <h1 className='ml-3 p-4'>Recommendations</h1>
-            <h1 className='ml-3 p-4'>Login</h1>
-        </div> }
-            <BiMenuAltRight color='white' onClick={onMenuClick} className='cursor-pointer' size={40}/>
         </div>
     </div>
   )

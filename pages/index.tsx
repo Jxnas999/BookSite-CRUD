@@ -41,7 +41,7 @@ const Home: NextPage = () => {
         </p>
         <div>
           <Link href='./Components/Adding'>
-            <button className='md:text-xl hover:from-[#124fde] hover:to-[#5484ff]  mt-8 py-1  font-bold bg-gradient-to-r from-[#6669f2]   to-[#44b7ff] px-6 rounded-2xl drop-shadow-lg text-white '>
+            <button className='md:text-xl hover:from-[#124fde] duration-300 hover:to-[#5484ff]  mt-8 py-1  font-bold bg-gradient-to-r from-[#6669f2]   to-[#44b7ff] px-6 rounded-2xl drop-shadow-lg text-white '>
               Start documenting
             </button>
           </Link>

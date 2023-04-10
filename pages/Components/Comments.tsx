@@ -18,12 +18,12 @@ export default function Comments({ entry, currentBook }: Book) {
     setDeleted(true)
   }
   return (
-    <div>
-      {!deleted ? <div className='m-8 md:text-xl shadow-custom-box min-w-[250px] max-w-[250px] max-h-[250px] overflow-y-scroll   py-4 outline-none   bg-[#3E6ADD] px-6 rounded-2xl drop-shadow-lg text-white '>
-        <p className=''>
+    <div className="font-">
+      {!deleted ? <div className='bg-black m-8 md:text-xl shadow-custom-box md:max-h-[400px] md:min-h-[400px] md:min-w-[300px] md:max-w-[300px] overflow-y-scroll scrollbar  py-4 outline-none   bg-[#3E6ADD] px-6 rounded-2xl drop-shadow-lg text-white '>
+        <p className="font-inter">
           {entry}
         </p>
-        <BsTrashFill className="drop-shadow-md ml-auto duration-150 hover:text-[#1f1f1f]" onClick={deleteEntry}></BsTrashFill>
+        <BsTrashFill className="drop-shadow-md cursor-pointer ml-auto duration-150 hover:text-[#1f1f1f]" onClick={deleteEntry}></BsTrashFill>
 
       </div>:<div></div>}
     </div>

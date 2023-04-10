@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import {useEffect, useState} from 'react'
 import { firebaseDatabase } from '../firebase/firebasedb';
 import Link from 'next/link';
@@ -31,7 +31,9 @@ function Notes() {
 
       async function getNotes(){
         if(uid){
-          const querySnapshot = await getDocs(collection(firebaseDatabase, uid));
+          console.log(uid)
+          const q = query(collection(firebaseDatabase, uid))
+          const querySnapshot = await getDocs(q);
           const tempBooks: string[] = []
           querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
@@ -47,7 +49,6 @@ function Notes() {
        }
        getNotes()
         
-       console.log('Effect')
       
     }, [uid]) 
     
@@ -59,7 +60,7 @@ function Notes() {
           <div className='flex flex-col relative'>
           {books && books.map(item => {
             return(
-              <button className='mb-2 px-20 py-2 bg-black text-3xl font-medium antialiased mt-4 md:text-4xl text-[#fff] hover:text-black hover:bg-white duration-300 drop-shadow-lg' key={item}><Link href={`/Components/entries/${uid}/${item}`} className='cursor-pointer '>{item}</Link></button>
+              <Link href={`/Components/entries/${uid}/${item}`} className='cursor-pointer '><button className='mb-2 px-20 py-2 bg-black text-3xl font-medium antialiased mt-4 md:text-4xl text-[#fff] hover:text-black hover:bg-white duration-300 drop-shadow-lg' key={item}>{item}</button></Link>
               )})}
             </div>
         </div>

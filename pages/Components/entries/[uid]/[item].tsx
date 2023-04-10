@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { TiArrowBack } from 'react-icons/ti'
 import {
   doc,
   getDoc,
@@ -76,7 +77,7 @@ const Book = () => {
   }
   return (
     <div className='min-w-[340px] font-ubuntu'>
-      <h1 className="bg-black inline-block text-white px-4 text-xl rounded-lg">Home</h1>
+      <Link  href='/'><TiArrowBack size={50} className="cursor-pointer"/></Link>
       {book ? (
         <div>
           <div className='flex flex-col items-center mt-10 '>

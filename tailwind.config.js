@@ -12,6 +12,7 @@ module.exports = {
       fontFamily: {
         ubuntu: ["Ubuntu", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        montserrat: ['Montserrat', 'sans-serif']
       },
       backgroundImage: {
         gradient: "url('../gradient_img.png')",

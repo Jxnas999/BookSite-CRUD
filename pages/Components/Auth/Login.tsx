@@ -1,11 +1,13 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import {useRef} from 'react'
 import { firebaseAuthRef } from "../../firebase/firebaseauth";
 
 export default function Login() {
+  const [errorMessage, setErrorMessage] = useState<String | null>(null)
+
    const emailRef = useRef<HTMLInputElement>(null)
    const password = useRef<HTMLInputElement>(null)
    const router = useRouter();
@@ -19,15 +21,16 @@ export default function Login() {
       
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage)
+      setTimeout(() => {
+        setErrorMessage(error.message)
+      }, 2000);
     });
  }
   }
   
   return (
     <div className='bg-[#1D1D1D] font-inter '>
+      {errorMessage? <h1 className="absolute bottom-5 right-0 text-white bg-black p-2 rounded-lg animate-bounce">{errorMessage}</h1> : <></>}
       <div className='flex flex-col items-center justify-center h-screen text-center'>
         <h1 className='text-4xl font-bold text-white'>Log in to Account</h1>
         <input
