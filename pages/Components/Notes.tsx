@@ -55,7 +55,7 @@ function Notes() {
           <div className='flex flex-col relative'>
           {books && books.map(item => {
             return(
-              <Link href={`/Components/entries/${uid}/${item}`} className='cursor-pointer '><button className='mb-2 px-20 py-2 bg-black text-3xl font-medium antialiased mt-4 md:text-4xl text-[#fff] hover:text-black hover:bg-white duration-300 drop-shadow-lg' key={item}>{item}</button></Link>
+              <Link key={item} href={`/Components/entries/${uid}/${item}`} className='cursor-pointer '><button className='mb-2 px-20 py-2 bg-black text-3xl font-medium antialiased mt-4 md:text-4xl text-[#fff] hover:text-black hover:bg-white duration-300 drop-shadow-lg' key={item}>{item}</button></Link>
               )})}
             </div>
         </div>

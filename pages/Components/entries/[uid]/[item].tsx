@@ -60,7 +60,7 @@ const Book = () => {
     }
     getBooks();
 
-  }, [router.isReady, addedInfo, uid]);
+  }, [router.isReady, addedInfo, uid, router.query]);
 
   async function addingInfo() {
     if(uid){
