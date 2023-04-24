@@ -3,7 +3,7 @@ import Link from "next/link";
 import Navbar from "./Components/Navbar";
 import {useState, useEffect} from 'react'
 import { onAuthStateChanged } from "firebase/auth";
-import { firebaseAuthRef } from "./firebase/firebaseauth";
+import { firebaseAuthRef } from "../firebase/firebaseauth";
 const Home: NextPage = () => {
 
   const [uid, setUid] = useState<string | null>(null)

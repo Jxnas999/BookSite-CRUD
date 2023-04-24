@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsTrashFill } from "react-icons/bs";
 import { doc, updateDoc, arrayRemove } from "firebase/firestore";
-import { firebaseDatabase } from "../firebase/firebasedb";
+import { firebaseDatabase } from "../../firebase/firebasedb";
 interface Book {
   entry: string;
   currentBook: string;

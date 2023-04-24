@@ -2,9 +2,9 @@ import React from 'react'
 import Navbar from './Navbar'
 import { collection, getDocs, query } from "firebase/firestore";
 import {useEffect, useState} from 'react'
-import { firebaseDatabase } from '../firebase/firebasedb';
+import { firebaseDatabase } from '../../firebase/firebasedb';
 import Link from 'next/link';
-import { firebaseAuthRef } from '../firebase/firebaseauth';
+import { firebaseAuthRef } from '../../firebase/firebaseauth';
 import { onAuthStateChanged } from 'firebase/auth';
 
 

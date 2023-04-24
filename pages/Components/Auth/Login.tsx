@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import {useRef} from 'react'
-import { firebaseAuthRef } from "../../firebase/firebaseauth";
+import { firebaseAuthRef } from "../../../firebase/firebaseauth";
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<String | null>(null)
@@ -49,7 +49,7 @@ export default function Login() {
           Log in
         </button>
         <div className='flex mt-4'>
-          <p className='text-[#525252]'>Don't have an account?</p>
+          <p className='text-[#525252]'>Dont have an account?</p>
           <Link href='/Components/Auth/Signup'>
             <a className='ml-2 font-bold text-[#66ace9]'>Sign up</a>
           </Link>

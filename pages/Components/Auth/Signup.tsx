@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useRef } from "react";
-import {firebaseAuthRef} from '../../firebase/firebaseauth'
+import {firebaseAuthRef} from '../../../firebase/firebaseauth'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 export default function Signup() {
    const email = useRef<HTMLInputElement>(null)

@@ -7,11 +7,11 @@ import {
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
-import { firebaseDatabase } from "../../../firebase/firebasedb";
+import { firebaseDatabase } from "../../../../firebase/firebasedb";
 import Link from "next/link";
 import Comments from "../../Comments";
 import {  onAuthStateChanged } from "firebase/auth";
-import { firebaseAuthRef } from "../../../firebase/firebaseauth";
+import { firebaseAuthRef } from "../../../../firebase/firebaseauth";
 
 const Book = () => {
   const router = useRouter();

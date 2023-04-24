@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { setDoc, doc, getDoc } from "@firebase/firestore";
-import { firebaseDatabase } from "../firebase/firebasedb";
+import { firebaseDatabase } from "../../firebase/firebasedb";
 import { useRouter } from "next/router";
 import { useUser } from '../Context/UserContext'
 import { onAuthStateChanged } from "firebase/auth";
-import { firebaseAuthRef } from "../firebase/firebaseauth";
+import { firebaseAuthRef } from "../../firebase/firebaseauth";
 export default function Adding() {
   const router = useRouter();
   const [addInput, setAddInput] = useState<boolean | undefined>();
