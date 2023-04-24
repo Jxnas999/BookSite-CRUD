@@ -10,10 +10,8 @@ export default function Signup() {
     if(email.current?.value && password.current?.value) {
     createUserWithEmailAndPassword(firebaseAuthRef, email.current.value, password.current.value)
   .then((userCredential) => {
-    // Signed in 
     const user = userCredential.user;
-    console.log(user)
-    // ...
+    
   })
   .catch((error) => {
     const errorCode = error.code;

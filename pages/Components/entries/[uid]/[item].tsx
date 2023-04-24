@@ -44,8 +44,6 @@ const Book = () => {
     
 
     async function getBooks() {
-      console.log(uid)
-      console.log(item)
       if(uid){
       setLoading(true)
       const docRef = doc(firebaseDatabase, uid, `${item}`);
@@ -56,7 +54,6 @@ const Book = () => {
         setBookEntries(docSnap.data().entries);
         setLoading(false)
       } else {
-        // doc.data() will be undefined in this case
         console.log("No such document!");
       }
       }
@@ -106,7 +103,7 @@ const Book = () => {
             {bookEntries &&
               bookEntries.map((item) => {
                 return (
-                  <Comments key={item} currentBook={currentBook} entry={item} />
+                  <Comments key={item} currentBook={currentBook} uid={uid} entry={item} />
                 );
               })}
           </div>

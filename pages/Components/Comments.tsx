@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { BsTrashFill } from "react-icons/bs";
-import { doc, updateDoc, deleteField, arrayRemove } from "firebase/firestore";
+import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 import { firebaseDatabase } from "../firebase/firebasedb";
-import { useRouter } from "next/router";
 interface Book {
   entry: string;
   currentBook: string;
+  uid: string | null;
 }
-export default function Comments({ entry, currentBook }: Book) {
-  const router = useRouter()
+export default function Comments({ entry, currentBook, uid }: Book) {
   const [deleted, setDeleted] = useState<boolean>(false)
+
   async function deleteEntry() {
-    const deleteRef = doc(firebaseDatabase, "books", `${currentBook}`);
-    await updateDoc(deleteRef, {
-      entries: arrayRemove(entry),
-    });
-    setDeleted(true)
+    if(uid){
+      const deleteRef = doc(firebaseDatabase, `${uid}`, `${currentBook}`);
+      await updateDoc(deleteRef, {
+        entries: arrayRemove(entry),
+      });
+      setDeleted(true)
+    }
   }
   return (
     <div className="font-">

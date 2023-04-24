@@ -18,7 +18,6 @@ function Notes() {
       
       onAuthStateChanged(firebaseAuthRef, (user) => {
         if (user) {
-          console.log(user)
           setUid(user.uid)
           setEmail(user.email)
           
@@ -31,14 +30,10 @@ function Notes() {
 
       async function getNotes(){
         if(uid){
-          console.log(uid)
           const q = query(collection(firebaseDatabase, uid))
           const querySnapshot = await getDocs(q);
           const tempBooks: string[] = []
           querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-
             tempBooks.push(doc.data().name)
           });
           setBooks(tempBooks)

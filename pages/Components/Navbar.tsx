@@ -9,13 +9,10 @@ interface User {
 }
 
 export default function Navbar({ email, uid }: User) {
-    const [menu, setMenu] = useState<boolean>(false)
     const [message, setMessage] = useState<string | null>(null)
     
 
-    function onMenuClick () {
-        setMenu(!menu)
-    }
+   
     function logOut(){
         const auth = getAuth();
         signOut(auth).then(() => {
@@ -31,7 +28,7 @@ export default function Navbar({ email, uid }: User) {
 
   return (
     <div>
-        <div className=' font-bold uppercase justify-around bg-black text-white flex'>
+        <div className=' font-bold uppercase justify-around bg-black py-4 text-white flex'>
             <Link href='/'><h1 className='ml-3 cursor-pointer p-4'>Home</h1></Link>
             <Link href='/Components/Notes'><h1 className='ml-3 cursor-pointer p-4'>Notes</h1></Link>
             

@@ -34,7 +34,6 @@ export default function Adding() {
     const docRef = doc(firebaseDatabase, uid , `${input}`)
     const docSnap = await getDoc(docRef)
       if(docSnap.exists()){
-        console.log('exists')
         setError('The Book is already created, please enter another name.')
         setTimeout(() => {
           setError(null)
